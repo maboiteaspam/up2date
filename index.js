@@ -4,15 +4,14 @@ var which = require('which');
 var stayTune = function(cwd, done){
   which('npm', function(err, path){
     var npmP = require('child_process').spawn(path, ['update'], {cwd:cwd});
-    var failed = false;
     npmP.stdout.on('data', function(d){
-      if(!failed) failed = !!(''+d).match(/error/)
+      process.stdout.write(d);
     });
     npmP.stderr.on('data', function(d){
-      if(!failed) failed = !!(''+d).match(/error/)
+      process.stderr.write(d);
     });
-    npmP.on('close', function(){
-      done(failed);
+    npmP.on('close', function(code){
+      done( (code===0) );
     });
   })
 };
