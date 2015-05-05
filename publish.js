@@ -220,8 +220,8 @@ inquirer.prompt([{
   ensureFileContain('.git/info/exclude', '\n.idea/\n');
   ensureFileContain('.git/info/exclude', '\ngithub.json/\n');
 
-  releaseProject('master', __dirname, releaseType, revision);
-  generateDocumentation('gh-pages', __dirname, releaseType, revision);
+  ensureFileContain('.gitignore', '\n.idea/\n');
+  ensureFileContain('.gitignore', '\ngithub.json/\n');
 
   transport.run(line, function(){
     console.log('All done');
